@@ -1,0 +1,216 @@
+.telo{
+    height: 120vh;
+    width: 90vw;
+    position: relative;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgb(190, 190, 190);
+}
+.naslov{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: blue;
+    font-size: 5vw;
+   
+        font-family: "Joti One", serif;
+        font-weight: 400;
+        font-style: normal;
+      
+      
+}
+.pocni {
+    background-color: #4CAF50; /* Fresh green */
+    color: white;
+    font-size: 3vw;
+    font-weight: bold;
+    padding : 3.2vh 3.2vh;
+    border: none;
+    border-radius: 25%/100%;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .pocni:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+  }
+  
+  .pocni:active {
+    transform: scale(0.95);
+  }
+  
+  /* Optional fun animation */
+  .pocni::before {
+    content: "";
+    position: absolute;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.3);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 0.4s ease-in-out;
+    border-radius: 50%;
+    opacity: 0;
+  }
+  
+  .pocni:hover::before {
+    width: 150%;
+    height: 150%;
+    opacity: 1;
+  }
+  .global {
+    background-color: #FFC107; /* Bright yellow */
+    color: white;
+    font-size: 3vw;
+    font-weight: bold;
+    padding : 3.2vh 3.2vh;
+    border: none;
+    border-radius: 25%/100%;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .global:hover {
+    background-color: #FFA000;
+    transform: scale(1.05);
+  }
+  
+  .global:active {
+    transform: scale(0.95);
+  }
+  
+  /* Optional fun animation */
+  .global::before {
+    content: "";
+    position: absolute;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.3);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 0.4s ease-in-out;
+    border-radius: 50%;
+    opacity: 0;
+  }
+  
+  .global:hover::before {
+    width: 150%;
+    height: 150%;
+    opacity: 1;
+  }
+  .dugmad{
+    width: 90vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .logo{
+    width: 15vw;
+    height: 15vw;
+    object-fit: contain;
+  }
+  .dugmad{
+    margin-top: 20vh;
+  }
+  .rekord{
+    font-size: 3vw;
+   
+    font-family: "Joti One", serif;
+    font-weight: 400;
+    font-style: normal;
+    margin-left: 4vw;
+}
+.igra{
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 1vh;
+}
+.confirm {
+    background-color: #4CAF50; /* Fresh green */
+    color: white;
+    font-size: 2vw;
+    font-weight: bold;
+    padding : 1.8vh 1.8vh;
+    border: none;
+    border-radius: 35%/100%;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .confirm:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+  }
+  
+  .confirm:active {
+    transform: scale(0.95);
+  }
+  
+  /* Optional fun animation */
+  .confirm::before {
+    content: "";
+    position: absolute;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.3);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 0.4s ease-in-out;
+    border-radius: 50%;
+    opacity: 0;
+  }
+  
+  .confirm:hover::before {
+    width: 150%;
+    height: 150%;
+    opacity: 1;
+  }
+  .rec{
+    height: 5vw;
+    width: 25vw;
+    font-size: 4vh;
+  }
+  .rezultat{
+    
+    font-family: "Joti One", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 3vw;
+  }
+  .kompjuter{
+    margin-left: 50%;
+    font-size: 2vw;
+  }
+  .vreme{
+    font-size: 3.5vw;
+    color:  green; 
+    font-weight: bold;
+  }
+  .vasrez{
+    text-align: center;
+    font-size: 3vw;
+    font-family: "Joti One", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  #map{
+    width: 70vw;
+    height: 50vh;
+  }

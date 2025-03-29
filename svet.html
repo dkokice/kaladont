@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Country Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+        #map { height: 500px; }
+        #search-container { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <div id="search-container">
+        <input type="text" id="search" placeholder="Enter a country" />
+        <button onclick="findCountry()">Find</button>
+    </div>
+    <div id="map"></div>
+
+    <script>
+        // Initialize the dark map without labels using Stamen Toner (no names or labels)
+        const map = L.map('map').setView([20, 0], 2);
+        L.tileLayer('https://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap & Stamen Design',
+            noWrap: true
+        }).addTo(map);
+
+        let countryLayers = []; // Store all country layers
+        let colorToggle = true; // Used to alternate colors
+
+        // Load all countries in grey at the beginning (no labels)
+        async function loadGreyCountries() {
+            const url = 'https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json';
+            const response = await fetch(url);
+            const data = await response.json();
+
+            L.geoJSON(data, {
+                style: { color: 'grey', weight: 1, fillOpacity: 0.3 },
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup(''); // Ensures no names appear when clicked
+                }
+            }).addTo(map);
+        }
+
+        async function findCountry() {
+            const country = document.getElementById("search").value;
+            if (!country) return;
+
+            const url = `https://nominatim.openstreetmap.org/search?format=json&q=${country}&polygon_geojson=1`;
+            const response = await fetch(url);
+            const data = await response.json();
+
+            if (data.length > 0 && data[0].geojson) {
+                // Set color: Alternate between blue and red
+                const fillColor = colorToggle ? 'blue' : 'red';
+                colorToggle = !colorToggle; // Flip the toggle for next country
+
+                // Create a new country layer
+                const newCountry = L.geoJSON(data[0].geojson, {
+                    style: { color: fillColor, weight: 2, fillOpacity: 0.7 },
+                    onEachFeature: function (feature, layer) {
+                        layer.bindPopup(''); // Ensures no names appear when clicked
+                    }
+                }).addTo(map);
+
+                countryLayers.push(newCountry); // Store the country layer
+                map.fitBounds(newCountry.getBounds()); // Zoom to new country
+            } else {
+                alert("Country not found!");
+            }
+        }
+
+        // Load the grey base map
+        loadGreyCountries();
+    </script>
+
+</body>
+</html>

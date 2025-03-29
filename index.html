@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" /> 
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Joti+One&family=Libre+Bodoni:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="telo">
+       
+        <p class="naslov">Kaladont Arena </p>
+       <img src="slova-removebg-preview.png" alt="igra sa rečima" class="logo">
+       <p class="rekord">Rekord: 0</p>
+       <div class="dugmad">
+       
+        <button class="pocni">Započni novu partiju</button>
+        <button class="global">Globalna rang lista</button>
+       </div>
+        <p class = "vasrez"></p>
+        <div class="igra">
+            <div id="map"></div>
+
+
+ <div style="display: flex;flex-direction: row; align-items: center; justify-content: space-around; width: 100vw;">
+    <p class = "vreme">5:00</p>
+            <input type="text" class="rec" id="search">
+           <p class="rezultat">Rezultat: 0</p> 
+ </div>
+            
+           <!-- <button class="confirm" onclick="obradi();">Potvrdi</button>  -->
+            <p class="niz"></p>
+           </div>
+           <p class="kompjuter"></p>
+
+    </div> 
+       <script>
+
+ // Initialize the dark map without labels using Stamen Toner (no names or labels)
+ /*const map = L.map('map').setView([20, 0], 2);
+        L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors & <a href="https://stamen.com/">Stamen Design</a>',
+            noWrap: true
+        }).addTo(map);
+
+        let countryLayers = []; // Store all country layers
+        let colorToggle = true; // Used to alternate colors
+
+        // Load all countries in grey at the beginning (no labels)
+        async function loadGreyCountries() {
+            const url = 'https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json';
+            const response = await fetch(url);
+            const data = await response.json();
+
+            L.geoJSON(data, {
+                style: { color: 'grey', weight: 1, fillOpacity: 0.3 },
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup(''); // Ensures no names appear when clicked
+                }
+            }).addTo(map);
+        }
+
+        async function findCountry() {
+            const country = document.getElementById("search").value;
+            if (!country) return;
+
+            const url = `https://nominatim.openstreetmap.org/search?format=json&q=${country}&polygon_geojson=1`;
+            const response = await fetch(url);
+            const data = await response.json();
+
+            if (data.length > 0 && data[0].geojson) {
+                // Set color: Alternate between blue and red
+                const fillColor = colorToggle ? 'blue' : 'red';
+                colorToggle = !colorToggle; // Flip the toggle for next country
+
+                // Create a new country layer
+                const newCountry = L.geoJSON(data[0].geojson, {
+                    style: { color: fillColor, weight: 2, fillOpacity: 0.7 },
+                    onEachFeature: function (feature, layer) {
+                        layer.bindPopup(''); // Ensures no names appear when clicked
+                    }
+                }).addTo(map);
+
+                countryLayers.push(newCountry); // Store the country layer
+                map.fitBounds(newCountry.getBounds()); // Zoom to new country
+            } else {
+                alert("Country not found!");
+            }
+        }
+
+        // Load the grey base map
+        loadGreyCountries();
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       let lastTwo = "";
+       const rezu = document.querySelector('.vasrez');
+        const dugmad = document.querySelector('.dugmad');
+        const niz = document.querySelector('.niz');
+        let rezultat = 0
+        const rek = document.querySelector('.rekord');
+        const rez = document.querySelector('.rezultat');
+        const igra = document.querySelector('.igra');
+        const rec = document.querySelector('.rec');
+        const tajm = document.querySelector('.vreme');
+        let record = 0;
+
+        document.querySelector('.pocni').addEventListener('click', ()=> {
+
+         dugmad.style.display = "none";
+         igra.style.display = "flex";
+         vreme = 301;
+         rezultat = 0;
+         tajmer();
+         rezu.innerHTML = '';
+        });
+        let vreme = 301;
+        function tajmer(){
+            if(vreme === 150){
+                tajm.style.color = "rgb(172, 172, 0)";
+            }
+            else if(vreme === 60){
+                tajm.style.color = "red";
+            }
+         if(vreme >= 1){
+            vreme-= 1;
+            if(vreme%60 > 9){
+                tajm.innerHTML = `${(vreme - vreme%60)/60}:${vreme%60}`;
+            }
+            else{
+                tajm.innerHTML = `${(vreme - vreme%60)/60}:0${vreme%60}`;
+            }
+            
+            /*setTimeout(tajmer, 100);*/
+         }
+         else if(vreme === 0){
+            igra.style.display = "none";
+            rezu.innerHTML = `Vreme je isteklo! Vaš rezultat je ${rezultat}`;
+            dugmad.style.display = "flex";
+            lastTwo = "";
+            document.querySelector('.kompjuter').innerHTML= `${lastTwo}`;
+            if(rezultat > record){
+                record = rezultat;
+            }
+            rek.innerHTML = `Rekord: ${record}`;
+         }
+        }
+        function obradi (){
+            if(lastTwo === rec.value.slice(0, 2) || lastTwo === ""){
+
+            
+            let word = rec.value;
+
+            lastTwo = word.slice(-2);
+
+           rec.value = "";
+           rezultat+=1;
+  rez.innerHTML = `Rezultat: ${rezultat}`;
+  document.querySelector('.kompjuter').innerHTML= `${lastTwo}`;
+            }
+        }
+        document.body.addEventListener('keydown', (event)=> {
+            if(event.key === 'Enter'){
+                findCountry();
+            }
+        });
+        
+            document.addEventListener('DOMContentLoaded', () => {
+                // Initialize the dark map without labels using Stamen Toner (no names or labels)
+                const map = L.map('map').setView([20, 0], 2);
+                L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors & <a href="https://stamen.com/">Stamen Design</a>',
+                    noWrap: true
+                }).addTo(map);
+        
+                let countryLayers = []; // Store all country layers
+                let colorToggle = true; // Used to alternate colors
+        
+                // Load all countries in grey at the beginning (no labels)
+                async function loadGreyCountries() {
+                    const url = 'https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json';
+                    const response = await fetch(url);
+                    const data = await response.json();
+        
+                    L.geoJSON(data, {
+                        style: { color: 'grey', weight: 1, fillOpacity: 0.3 },
+                        onEachFeature: function (feature, layer) {
+                            layer.bindPopup(''); // Ensures no names appear when clicked
+                        }
+                    }).addTo(map);
+                }
+        
+                async function findCountry() {
+                    const country = document.getElementById("search").value;
+                    if (!country) return;
+        
+                    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${country}&polygon_geojson=1`;
+                    const response = await fetch(url);
+                    const data = await response.json();
+        
+                    if (data.length > 0 && data[0].geojson) {
+                        // Set color: Alternate between blue and red
+                        const fillColor = colorToggle ? 'blue' : 'red';
+                        colorToggle = !colorToggle; // Flip the toggle for next country
+        
+                        // Create a new country layer
+                        const newCountry = L.geoJSON(data[0].geojson, {
+                            style: { color: fillColor, weight: 2, fillOpacity: 0.7 },
+                            onEachFeature: function (feature, layer) {
+                                layer.bindPopup(''); // Ensures no names appear when clicked
+                            }
+                        }).addTo(map);
+        
+                        countryLayers.push(newCountry); // Store the country layer
+                        map.fitBounds(newCountry.getBounds()); // Zoom to new country
+                    } else {
+                        alert("Country not found!");
+                    }
+                }
+        
+                // Load the grey base map
+                loadGreyCountries();
+        
+                document.body.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter') {
+                        findCountry();
+                    }
+                });
+            });
+        </script>
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</body>
+</html>
